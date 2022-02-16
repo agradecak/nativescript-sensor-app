@@ -1,2 +1,3 @@
-# nativescript-sensor-app
+# NativeScript senzor aplikacija
+
 NativeScript Android aplikacija sa senzorima.
