@@ -17,8 +17,8 @@ https://docs.nativescript.org/ui/professional-ui-components/SideDrawer/getting-s
         <GridLayout rows="auto, *" class="nt-drawer__content">
             <StackLayout class="nt-drawer__header">
                 <Image class="fas t-36" src="font://&#xf2db;" width="20%"/>
-                <Label class="nt-drawer__header-brand m-t-10" text="Senzor magnetskog polja" />
-                <Label class="nt-drawer__header-footnote m-t-5" textWrap="true" text="Dohvaćanje podataka iz senzora magnetskog polja." />
+                <Label class="nt-drawer__header-brand m-t-10" text="Senzor App" />
+                <Label class="nt-drawer__header-footnote m-t-5" textWrap="true" text="Dohvaćanje podataka iz različitih Android senzora." />
             </StackLayout>
 
             <ScrollView row="1">
@@ -36,13 +36,57 @@ https://docs.nativescript.org/ui/professional-ui-components/SideDrawer/getting-s
 
                     <GridLayout
                         columns="auto, *"
-                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Senzor' ? ' -selected': '') }}"
-                        route="senzor/senzor-page"
-                        title="Senzor"
+                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Akcelerometar' ? ' -selected': '') }}"
+                        route="akcelerometar/akcelerometar-page"
+                        title="akcelerometar"
                         tap="onNavigationItemTap"
                     >
-                        <Label row="0" col="0" text="&#xf2db;" class="nt-icon fas" />
-                        <Label row="0" col="1" text="Senzor" class="p-r-20" />
+                        <Label row="0" col="0" text="&#xf70c;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Akcelerometar" class="p-r-20" />
+                    </GridLayout>
+
+                    <GridLayout
+                        columns="auto, *"
+                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Magnet' ? ' -selected': '') }}"
+                        route="magnet/magnet-page"
+                        title="Magnet"
+                        tap="onNavigationItemTap"
+                    >
+                        <Label row="0" col="0" text="&#xf076;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Senzor magnetskog polja" class="p-r-20" />
+                    </GridLayout>
+
+                    <GridLayout
+                        columns="auto, *"
+                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Orijentacija' ? ' -selected': '') }}"
+                        route="orijentacija/orijentacija-page"
+                        title="Orijentacija"
+                        tap="onNavigationItemTap"
+                    >
+                        <Label row="0" col="0" text="&#xf14e;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Senzor orijentacije" class="p-r-20" />
+                    </GridLayout>
+
+                    <GridLayout
+                        columns="auto, *"
+                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Svjetlost' ? ' -selected': '') }}"
+                        route="svjetlost/svjetlost-page"
+                        title="Svjetlost"
+                        tap="onNavigationItemTap"
+                    >
+                        <Label row="0" col="0" text="&#xf0eb;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Senzor svjetlosti" class="p-r-20" />
+                    </GridLayout>
+
+                    <GridLayout
+                        columns="auto, *"
+                        class="{{ 'nt-drawer__list-item' + (selectedPage === 'Ziroskop' ? ' -selected': '') }}"
+                        route="ziroskop/ziroskop-page"
+                        title="Ziroskop"
+                        tap="onNavigationItemTap"
+                    >
+                        <Label row="0" col="0" text="&#xf51f;" class="nt-icon fas" />
+                        <Label row="0" col="1" text="Žiroskop" class="p-r-20" />
                     </GridLayout>
                 </StackLayout>
             </ScrollView>

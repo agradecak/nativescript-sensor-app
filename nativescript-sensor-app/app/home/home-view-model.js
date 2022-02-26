@@ -1,5 +1,4 @@
 import { fromObject } from '@nativescript/core'
-
 import { SelectedPageService } from '../shared/selected-page-service'
 
 export function HomeViewModel() {

@@ -95,14 +95,24 @@ Kako koristimo `template-drawer-navigation` layout, možemo izmjeniti što se sv
 ``` xml
 <StackLayout class="nt-drawer__header">
     <Image class="fas t-36" src="font://&#xf2db;" width="20%"/>
-    <Label class="nt-drawer__header-brand m-t-10" text="Proximity Senzor App" />
-    <Label class="nt-drawer__header-footnote m-t-5" textWrap="true" text="Aplikacija za dohvaćanje podataka iz senzora za blizinu." />
+    <Label class="nt-drawer__header-brand m-t-10" text="Senzor App" />
+    <Label class="nt-drawer__header-footnote m-t-5" textWrap="true" text="Dohvaćanje podataka iz različitih Android senzora." />
 </StackLayout>
 ```
 
-Također možemo izmjeniti/obrisati i elemente ladice koji nam nisu potrebni. Ostaviti ćemo `Home` za opis aplikacije, izmjeniti `Browse` ladicu u `Senzor` te izbrisati sve ostale. U istoj datoteci izbacujemo slijedeće komponente:
+Također možemo izmjeniti/obrisati i elemente ladice koji nam nisu potrebni. Ostaviti ćemo `Home` za opis aplikacije, a izbrisati sve ostale. U istoj datoteci izbacujemo slijedeće komponente:
 
 ``` xml
+<GridLayout
+    columns="auto, *"
+    class="{{ 'nt-drawer__list-item' + (selectedPage === 'Browse' ? ' -selected': '') }}"
+    route="browse/browse-page"
+    title="Browse"
+    tap="onNavigationItemTap"
+>
+    <Label row="0" col="0" text="&#xf002;" class="nt-icon fas" />
+    <Label row="0" col="1" text="Browse" class="p-r-10" />
+</GridLayout>
 <GridLayout
     columns="auto, *"
     class="{{ 'nt-drawer__list-item' + (selectedPage === 'Search' ? ' -selected': '') }}"
@@ -139,23 +149,7 @@ Također možemo izmjeniti/obrisati i elemente ladice koji nam nisu potrebni. Os
 </GridLayout>
 ```
 
-Brišemo i pripadajuće direktorije koji sadržavaju kod za gore navedene aktivnosti. Za aktivnost `Browse` koju mijenjamo u `Senzor` moramo pažljivo izmjeniti naziv direktorija koji sadrži potrebne datoteke te nazive metoda, modula i varijabli koje povezuju ovu aktivnost sa aplikacijom.
-
-Vraćamo se u datoteku `app-root.xml` te prijašnju komponentu `Browse` prenamjenjujemo u `Senzor` mijenjajući `title, route, class` te obje `Label` komponente:
-
-``` xml
-<GridLayout
-    columns="auto, *"
-    class="{{ 'nt-drawer__list-item' + (selectedPage === 'Senzor' ? ' -selected': '') }}"
-    route="senzor/senzor-page"
-    title="Senzor"
-    tap="onNavigationItemTap"
->
-    <Label row="0" col="0" text="&#xf2db;" class="nt-icon fas" />
-    <Label row="0" col="1" text="Senzor" class="p-r-20" />
-</GridLayout>
-
-```
+Brišemo i pripadajuće direktorije koji sadržavaju kod za gore navedene aktivnosti.
 
 ## 3. Instalacija sensor plugina
 
@@ -179,6 +173,24 @@ android {
     ...
 }
 ```
+
+## 4. Layout aktivnosti senzora
+
+Kopiramo direktorij `Home` za onoliko aktivnosti koliko želimo imati u aplikaciji. U datotekama stvorenih direktorija potrebno je preimenovati nazive metoda, modula i ruta kako bi aplikacija bila pravilno pospajana sa novim aktivnostima.
+
+Zatim se vraćamo u datoteku `app-root.xml` te prijašnju komponentu `Browse` prenamjenjujemo u `Senzor` mijenjajući `title, route, class` te obje `Label` komponente:
+
+``` xml
+<GridLayout
+    columns="auto, *"
+    class="{{ 'nt-drawer__list-item' + (selectedPage === 'Senzor' ? ' -selected': '') }}"
+    route="senzor/senzor-page"
+    title="Senzor"
+    tap="onNavigationItemTap"
+>
+    <Label row="0" col="0" text="&#xf2db;" class="nt-icon fas" />
+    <Label row="0" col="1" text="Senzor" class="p-r-20" />
+</GridLayout>
 
 ## 4. Dohvaćanje podataka iz senzora
 

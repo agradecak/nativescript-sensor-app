@@ -1,0 +1,31 @@
+<Page
+    navigatingTo="onNavigatingTo"
+    xmlns="http://schemas.nativescript.org/tns.xsd">
+
+    <ActionBar>
+        <NavigationButton visibility="hidden"></NavigationButton>
+        <GridLayout columns="50, *">
+            <Label class="action-bar-title" text="Akcelerometar" colSpan="2"/>
+            <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
+        </GridLayout>
+    </ActionBar>
+
+    <ScrollView orientation="vertical">
+        <GridLayout marginTop="20" rows="auto, auto, auto, auto" columns="20,*,*,55,20">
+            <Label text="Ime:" fontSize="20" row="0" col="1" ></Label>
+            <Label text="{{ ime }}" fontSize="20" textAlignment="right" textTransform="uppercase" row="0" col="2" colSpan="2"></Label>
+
+            <Label text="X os:" fontSize="20" row="1" col="1"></Label>
+            <Label text="{{ x }}" fontSize="20" textAlignment="right" row="1" col="2"></Label>
+            <Label text="m/s2" fontSize="20" textAlignment="right" row="1" col="3" ></Label>
+
+            <Label text="Y os:" fontSize="20" row="2" col="1"></Label>
+            <Label text="{{ y }}" fontSize="20" textAlignment="right" row="2" col="2"></Label>
+            <Label text="m/s2" fontSize="20" textAlignment="right" row="2" col="3" ></Label>
+
+            <Label text="Z os:" fontSize="20" row="3" col="1"></Label>
+            <Label text="{{ z }}" fontSize="20" textAlignment="right" row="3" col="2"></Label>
+            <Label text="m/s2" fontSize="20" textAlignment="right" row="3" col="3" ></Label>
+        </GridLayout>
+    </ScrollView>
+</Page>
