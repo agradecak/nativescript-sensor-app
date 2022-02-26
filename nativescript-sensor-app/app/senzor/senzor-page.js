@@ -1,10 +1,10 @@
 import { Application } from '@nativescript/core'
 
-import { SenzoriViewModel } from './senzori-view-model'
+import { SenzorViewModel } from './senzor-view-model'
 
 export function onNavigatingTo(args) {
   const page = args.object
-  page.bindingContext = new SenzoriViewModel()
+  page.bindingContext = new SenzorViewModel()
 }
 
 export function onDrawerButtonTap(args) {

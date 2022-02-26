@@ -10,7 +10,7 @@ Prije svega, pametno je uvjeriti se da je NativeScript dobro postavljen prije po
 ns doctor android
 ```
 
-Prvo je potrebno otvoriti novi udaljeni GitHub repozitorij na kojemu će se nalaziti projekt. Nakon otvaranja, u željeni lokalni direktorij kloniramo repozitorij naredbom:
+Prvo je potrebno otvoriti novi udaljeni GitHub repozitorij na kojemu će se nalaziti projekt. Zatim u željeni lokalni direktorij kloniramo repozitorij naredbom:
 
 ``` shell
 git clone https://github.com/proto-forma/nativescript-sensor-app.git
@@ -22,7 +22,7 @@ Nakon kloniranja, pozicioniramo se u novostvoreni direktorij aplikacije:
 cd nativescript-sensor-app/
 ```
 
-Zatim pokrećemo naredbu koja stvara novu NativeScript aplikaciju na temelju predloška:
+Zatim pokrećemo naredbu koja stvara novu NativeScript aplikaciju na temelju gotovog predloška:
 
 ``` shell
 tns create nativescript-sensor-app --template @nativescript/template-drawer-navigation
@@ -34,7 +34,7 @@ Opet se pozicioniramo u novostvoreni direktorij:
 cd nativescript-sensor-app/
 ```
 
-Sada možemo pokrenuti aplikaciju na našem Android uređaju kako bi se uvjerili da je postavljanje uspješno:
+Sada možemo pokrenuti aplikaciju na našem Android uređaju kako bi se uvjerili da je postavljanje bilo uspješno:
 
 ``` shell
 ns run android
@@ -49,30 +49,7 @@ git commit -m "Inicijalno podizanje projekta."
 git push nativescript-sensor-app main
 ```
 
-## 2. Instalacija sensor plugina
-
-Izrađujemo aplikaciju koja sadrži senzore za svjetlost i blizinu. Kako bi dobivali podatke iz senzora potrebno je instalirati [plugin za korištenje Android senzora](https://market.nativescript.org/plugins/nativescript-android-sensors/):
-
-``` shell
-npm i --save nativescript-android-sensors
-```
-
-U slučaju da nakon instalacije dobijemo error
-
-> minSdkVersion "X" cannot be smaller than version "Y"
-
-potrebno je pozicionirati se u direktorij `/App_Resources/Android` te u datoteci `app.gradle` izmjenimo `minSdkVersion` sa `17` na `21`:
-
-``` gradle
-android {
-  defaultConfig {
-    minSdkVersion 21
-
-    ...
-}
-```
-
-## 3. Layout
+## 2. Layout
 
 Kada prvi puta pokrenemo aplikaciju, na nekim uređajima (uključujući moj) možemo uočiti da aplikacija ne uzima u obzir gornji dio zaslona ako ima usjek za prednju kameru. To možemo popraviti tako da se pozicioniramo u direktorij `/App_Resources/Android/src/main/res/values-v21` te u datoteci `styles.xml` izmjenimo slijedeći redak iz `true` u `false` u:
 
@@ -169,16 +146,68 @@ Vraćamo se u datoteku `app-root.xml` te prijašnju komponentu `Browse` prenamje
 ``` xml
 <GridLayout
     columns="auto, *"
-    class="{{ 'nt-drawer__list-item' + (selectedPage === 'Senzori' ? ' -selected': '') }}"
-    route="senzori/senzori-page"
-    title="Senzori"
+    class="{{ 'nt-drawer__list-item' + (selectedPage === 'Senzor' ? ' -selected': '') }}"
+    route="senzor/senzor-page"
+    title="Senzor"
     tap="onNavigationItemTap"
 >
     <Label row="0" col="0" text="&#xf2db;" class="nt-icon fas" />
-    <Label row="0" col="1" text="Senzori" class="p-r-20" />
+    <Label row="0" col="1" text="Senzor" class="p-r-20" />
 </GridLayout>
 
 ```
+
+## 3. Instalacija sensor plugina
+
+Izrađujemo aplikaciju koja sadrži Android senzor. Kako bi dobivali podatke iz senzora potrebno je instalirati [plugin za korištenje Android senzora](https://market.nativescript.org/plugins/nativescript-android-sensors/):
+
+``` shell
+npm i --save nativescript-android-sensors
+```
+
+U slučaju da nakon instalacije dobijemo error
+
+> minSdkVersion "X" cannot be smaller than version "Y"
+
+potrebno je pozicionirati se u direktorij `/App_Resources/Android` te u datoteci `app.gradle` izmjenimo `minSdkVersion` sa `17` na `21`:
+
+``` gradle
+android {
+  defaultConfig {
+    minSdkVersion 21
+
+    ...
+}
+```
+
+## 4. Dohvaćanje podataka iz senzora
+
+U datoteku `senzor-view-model.js` importamo potrebne module:
+
+``` js
+import { Observable } from '@nativescript/core'
+import { AndroidSensors, AndroidSensorListener, SensorDelay } from 'nativescript-android-sensors';
+
+...
+```
+
+Sada u funkciji `SenzorViewModel()` stvaramo novu instancu `Observable()` koja će držati `viewModel` vrijednosti i proslijeđivati ih u View:
+
+``` js
+export function SenzorViewModel() {
+    SelectedPageService.getInstance().updateSelectedPage('Senzor')
+
+    const viewModel = new Observable()
+    viewModel.x = 10
+    viewModel.y = 20
+    viewModel.z = 30
+    viewModel.dev_sens = 0
+
+    
+}
+```
+
+
 
 
 
