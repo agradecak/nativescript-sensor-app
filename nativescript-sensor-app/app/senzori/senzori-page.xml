@@ -1,0 +1,26 @@
+<Page
+    navigatingTo="onNavigatingTo"
+    xmlns="http://schemas.nativescript.org/tns.xsd">
+
+    <ActionBar>
+        <NavigationButton visibility="hidden"></NavigationButton>
+        <GridLayout columns="50, *">
+            <Label class="action-bar-title" text="Senzori" colSpan="2"/>
+            <Label class="fas" text="&#xf0c9;" tap="onDrawerButtonTap"/>
+        </GridLayout>
+    </ActionBar>
+
+    <ScrollView orientation="vertical">
+        <GridLayout class="page__content">
+            <Label class="page__content-icon fas" text="&#xf2db;"></Label>
+            <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+        </GridLayout>
+
+        <GridLayout rows="auto, 30, 30, 30" columns="50,*,50">
+            <Label text="{{ dev_sens }}" row="0" col="1" backgroundColor="#92a8d1" textWrap="true"></Label>
+            <Label text="{{ x }}" row="1" col="1" backgroundColor="#92a8d1" textWrap="true"></Label>
+            <Label text="{{ y }}" row="2" col="1" backgroundColor="#92a8d1"></Label>
+            <Label text="{{ z }}" row="3" col="1" backgroundColor="#92a8d1"></Label>
+        </GridLayout>
+    </ScrollView>
+</Page>
