@@ -8,17 +8,17 @@ U nastavku je razložen razvojni proces NativeScript Android aplikacije sa senzo
 - senzor svjetlosti
 - žiroskop
 
-Aplikacija je namijenjena jednostavnom očitavanju mjerenih vrijednosti i informacija o spomenutim senzorima. Sastavljena je od 6 aktivnosti, jedne Home aktivnosti i pet aktivnosti za Android senzore. Kako bi koristili senzore, potrebno je otvoriti "drawer" ili ladicu kroz koju je moguće navigirati na bilo koji od spomenutih senzora.
+Aplikacija je namijenjena jednostavnom očitavanju mjerenih vrijednosti i informacija o spomenutim senzorima. Sastavljena je od 6 aktivnosti - jedne *Home* aktivnosti i pet aktivnosti za Android senzore. Kako bi koristili senzore, potrebno je otvoriti *"drawer"* ili ladicu kroz koju je moguće navigirati na bilo koji od spomenutih senzora.
 
 ## 1. Postavljanje projekta
 
-Prije svega, pametno je uvjeriti se da je NativeScript dobro postavljen prije početka rada na projektu:
+Pametno je uvjeriti se da je NativeScript dobro postavljen prije početka rada na projektu:
 
 ``` console
 $ ns doctor android
 ```
 
-Kako bi krenuli s radom, potrebno je otvoriti novi udaljeni GitHub repozitorij na kojemu će se nalaziti izvorni kod projekta. Zatim u željeni lokalni direktorij kloniramo repozitorij naredbom:
+Prije početka rada na aplikaciji potrebno je otvoriti novi udaljeni GitHub repozitorij na kojemu će se nalaziti izvorni kod projekta. Zatim u željeni lokalni direktorij kloniramo repozitorij naredbom:
 
 ``` console
 $ git clone https://github.com/proto-forma/nativescript-sensor-app.git
@@ -59,7 +59,7 @@ $ git push nativescript-sensor-app main
 
 ## 2. Layout
 
-Kada prvi puta pokrenemo aplikaciju, na nekim uređajima (uključujući mojem) možemo uočiti da aplikacija ne uzima u obzir gornji dio zaslona ukoliko ima usjek za prednju kameru. To možemo popraviti tako da se pozicioniramo u direktorij `/App_Resources/Android/src/main/res/values-v21` te u datoteci `styles.xml` izmjenimo slijedeći redak iz `true` u `false` u:
+Kada prvi puta pokrenemo aplikaciju, na nekim uređajima (uključujući mojem) možemo uočiti da aplikacija ne uzima u obzir gornji dio zaslona ukoliko uređaj ima usjek za prednju kameru. To možemo popraviti tako da se pozicioniramo u direktorij `/App_Resources/Android/src/main/res/values-v21` te u datoteci `styles.xml` izmjenimo slijedeći redak iz `true` u `false` u:
 
 ``` xml
 <style name="AppThemeBase21" parent="AppThemeBase">
@@ -108,7 +108,7 @@ Kako koristimo `template-drawer-navigation` layout, možemo izmjeniti što se sv
 </StackLayout>
 ```
 
-Također možemo izmjeniti i elemente ladice za sve aktivnosti koje ćemo imati u aplikaciji. Ostaviti ćemo `Home` "entry" netaknutim (sadržavati će opis aplikacije), a izmjeniti ćemo ostale na slijedeći način:
+Također možemo izmjeniti i elemente ladice za sve aktivnosti koje ćemo imati u aplikaciji. Ostaviti ćemo `Home` *"entry"* netaknutim (sadržavati će opis aplikacije), a izmjeniti ćemo ostale na slijedeći način:
 
 ``` xml
 <GridLayout
@@ -167,21 +167,21 @@ Također možemo izmjeniti i elemente ladice za sve aktivnosti koje ćemo imati 
 </GridLayout>
 ```
 
-Sada možemo izbrisati direktorije koji sadržavaju kod za aktivnosti koje su došle sa template-om. Potom kopiramo direktorij `Home` za onoliko aktivnosti koliko želimo imati u aplikaciji. U datotekama stvorenih direktorija potrebno je preimenovati nazive metoda, modula i ruta koristeći nazive aktivnosti koje smo u layoutu iznad definirali kako bi aplikacija bila pravilno pospajana sa novim aktivnostima.
+Sada možemo izbrisati direktorije koji sadržavaju kod za aktivnosti koje su došle sa template-om. Potom kopiramo direktorij `Home` za onoliko aktivnosti koliko ih želimo imati u aplikaciji. U datotekama stvorenih direktorija potrebno je preimenovati nazive metoda, modula i ruta koristeći nazive aktivnosti koje smo u layoutu iznad definirali kako bi aplikacija bila pravilno pospajana sa novim aktivnostima.
 
 ## 3. Instalacija sensor plugina
 
-Izrađujemo aplikaciju koja sadrži Android senzor. Kako bi dobivali podatke iz senzora potrebno je instalirati [plugin za korištenje Android senzora](https://market.nativescript.org/plugins/nativescript-android-sensors/):
+Izrađujemo aplikaciju koja sadrži Android senzore. Kako bi dobivali podatke iz senzora potrebno je instalirati [plugin za korištenje Android senzora](https://market.nativescript.org/plugins/nativescript-android-sensors/):
 
-``` shell
-npm i --save nativescript-android-sensors
+``` console
+$ npm i --save nativescript-android-sensors
 ```
 
 U slučaju da nakon instalacije dobijemo error:
 
 > minSdkVersion *X* cannot be smaller than version *Y*
 
-potrebno je pozicionirati se u direktorij `/App_Resources/Android` te u datoteci `app.gradle` izmjenimo `minSdkVersion` sa `17` na `21`:
+potrebno je pozicionirati se u direktorij `/App_Resources/Android` te u datoteci `app.gradle` izmjeniti `minSdkVersion` sa `17` na `21`:
 
 ``` gradle
 android {
@@ -220,7 +220,7 @@ Nadalje, `<GridLayout>` komponentu možemo "okružiti" `<ScrollView>` komponento
 </ScrollView>
 ```
 
-Određujemo i broj redaka i stupaca te njihove veličine. U ovome slučaju definiramo 4 redaka kojima dopuštamo `auto` "sizing", a 5 stupaca od kojih prvi i zadnji služe za udaljavanje sadržaja od bočnih strana prozora. Središnja 3 stupca sadrže podatke o komponentama senzora.
+Određujemo i broj redaka i stupaca te njihove veličine. U ovome slučaju definiramo 4 redaka kojima dopuštamo `auto` "sizing", a 5 stupaca gdje prvi i zadnji služe za udaljavanje sadržaja od bočnih strana prozora. Središnja 3 stupca sadrže podatke o komponentama senzora.
 
 ``` xml
 <GridLayout marginTop="20" rows="auto, auto, auto, auto" columns="20,*,*,55,20">
@@ -236,7 +236,7 @@ Svaki skup dolje navedenih `<Label>` komponenata, osim skupa koji predstavlja im
 2. Label za prikaz vrijednosti mjerene komponente senzora u nekom trenutku
 3. Label za prikaz mjerne jedinice komponente senzora
 
-Što se formatiranja sadržaja tiče, tu su uobičajene mjere: 
+Što se formatiranja sadržaja tiče, tu su uobičajene promjene: 
 
 - promjena veličine fonta
 - postavljanje poravnjanja teksta
@@ -266,7 +266,7 @@ Svaki skup dolje navedenih `<Label>` komponenata, osim skupa koji predstavlja im
 
 Postavljanje logike dohvaćanja podataka senzora izvršavamo u `akcelerometar-view-model.js` datoteci.  
 
-Prvo je potrebno napraviti unos potrebnih modula:
+Prvo je potrebno napraviti unos korištenih modula:
 
 ``` js
 import { Observable } from '@nativescript/core'
@@ -274,7 +274,7 @@ import { SelectedPageService } from '../shared/selected-page-service'
 import { AndroidSensors, AndroidSensorListener, SensorDelay } from 'nativescript-android-sensors';
 ```
 
-Sada je potrebno stvoriti novu instancu objekta `Observable()` koji će sadržavati kontekst našeg ViewModela. Senzor akcelerometra [vraća tri vrijednosti](https://developer.android.com/reference/android/hardware/SensorEvent#values) - za x, y i z os:
+Zatim stvaramo novu instancu objekta `Observable()` koji će sadržavati kontekst našeg ViewModela. Senzor akcelerometra [vraća tri vrijednosti](https://developer.android.com/reference/android/hardware/SensorEvent#values) - za x, y i z os:
 
 ``` js
 export function AkcelerometarViewModel() {
@@ -292,7 +292,7 @@ export function AkcelerometarViewModel() {
 }
 ```
 
-Sada kreiramo i instancu objekta `AndroidSensors()` koja će sadržavati sve senzore s kojima radimo. Međutim, u svakoj aktivnosti ove aplikacije radi se samo s jednim senzorom. Dodatno deklariramo i varijablu koja će sadržavati instancu željenog senzora.
+Kreiramo instancu objekta `AndroidSensors()` koja će sadržavati sve senzore s kojima radimo. Međutim, u svakoj aktivnosti ove aplikacije radi se samo s jednim senzorom. Dodatno deklariramo i varijablu koja će sadržavati instancu željenog senzora.
 
 ``` js
 ...
@@ -303,12 +303,12 @@ var akcelerometar
 ...
 ```
 
-Zatim kreiramo i instancu slušatelja Android senzora koji vraća podatke kada se stanje senzora promjeni. Instanca se sastoji od dvije metode:
+Zatim kreiramo instancu slušatelja Android senzora koji vraća podatke kada se stanje senzora promjeni. Slušatelj sadrži dvije metode:
 
 1. `onAccuracyChanged()` koja vraća informacije o senzoru i njegovu preciznost
-2. `onSensorsChanged()` koja vraća podatke senzora u JSON formatu
+2. `onSensorsChanged()` koja vraća mjerene vrijednosti senzora u JSON formatu
 
-Podaci vraćeni metodom `onSensorsChanged()` obrađuju se te proslijeđuju kontekstu `viewModel`. Prvo rezultat metode pretvaramo u JS objekt uz pomoć funkcije `JSON.parse(rezultat)`. Zatim u zasebne varijable (*data* i *sensor*) odvajamo podatkovne vrijednosti senzora od informacija o samom senzoru.  
+Podaci vraćeni metodom `onSensorsChanged()` obrađuju se te proslijeđuju kontekstu `viewModel`. Prvo rezultat metode pretvaramo u JS objekt uz pomoć funkcije `JSON.parse(rezultat)`. Zatim u zasebne varijable, *data* i *sensor*, odvajamo podatkovne vrijednosti senzora od informacija o samom senzoru.  
 
 Nadalje, iz *senzor* varijable izvlačimo ime senzora tako da iz stringa izuzmemo dio imena koji je zajednički za sve senzore - `android.sensor.`.
 
@@ -353,7 +353,7 @@ senzori.setListener(slusateljSenzora)
 ...
 ```
 
-Smi senzor sada možemo i pokrenuti:
+Senzor sada možemo i pokrenuti:
 
 ``` js
     ...
@@ -374,15 +374,15 @@ HOME                       |DRAWER                          |AKCELEROMETAR      
 
 ## 7. Profiliranje aplikacije
 
-Kako bi profilirali aplikacija, možemo ju pokrenuti direktno iz profilera u Android Studiu ili ju prvo izgraditi iz izvornog koda pa pokrenuti u profileru. Ako se odlučimo na prvu opciju, prvo se pozicioniramo u glavni direktorij aplikacije i pokrenemo:
+Kako bi profilirali aplikacija, možemo ju pokrenuti direktno iz profilera u Android Studiu ili ju prvo izgraditi iz izvornog koda pa pokrenuti u profileru. Ako se odlučimo za prvu opciju, prvo se pozicioniramo u glavni direktorij aplikacije i pokrenemo:
 
 ``` console
 $ ns build android
 ```
 
-U prozoru konzole dobijemo lokaciju izgrađene aplikacije koja se nalazi u `...\nativescript-sensor-app\platforms\android\app\build\outputs\apk\debug\app-debug.apk`.
+U prozoru konzole dobijemo lokaciju izgrađene aplikacije koja se u ovom slučaju nalazi u `...\nativescript-sensor-app\platforms\android\app\build\outputs\apk\debug\app-debug.apk`.
 
-Vratimo se profiliranju aplikacije koja je pokrenuta na uređaju. Otvaramo Android Studio i na alatnoj traci odaberemo `View -> Tool Windows -> Profiler`. Kada se prozor profilera otvori, u gornjem lijevom kutu prozora profilera kliknemo na ikonu `+` koja pokreće novu sesiju profiliranja. Možemo odabrati `Load file...` no mi odabiremo uređaj koji je spojen na računalo i aplikaciju koja je pokrenuta na uređaju (u ovom slučaju "nativescriptsensorapp").
+Vratimo se profiliranju aplikacije koja je već pokrenuta na uređaju. Otvaramo Android Studio i na alatnoj traci odaberemo `View -> Tool Windows -> Profiler`. Kada se prozor profilera otvori, u gornjem lijevom kutu prozora profilera kliknemo na ikonu `+` koja pokreće novu sesiju profiliranja. Možemo odabrati `Load file...` no mi odabiremo uređaj koji je spojen na računalo i aplikaciju koja je pokrenuta na uređaju (u ovom slučaju "nativescriptsensorapp").
 
 Snimanjem CPU, memorijskog i energetskog tereta aplikacije na resurse uređaja dobivamo slijedeće rezultate:
 
@@ -413,3 +413,4 @@ Energija, rezultati:
 - [NativeScript, usjek prednje kamere](https://github.com/NativeScript/NativeScript/issues/6795)
 - [Android, senzori](https://developer.android.com/reference/android/hardware/Sensor)
 - [Android, senzori i vraćane vrijednosti](https://developer.android.com/reference/android/hardware/SensorEvent#values)
+- [minSdkVersion error](https://stackoverflow.com/questions/24718824/manifest-merger-failed-uses-sdkminsdkversion-8-cannot-be-smaller)
