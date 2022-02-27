@@ -10,8 +10,15 @@
         </GridLayout>
     </ActionBar>
 
-    <GridLayout class="page__content">
-        <Label class="page__content-icon fas" text="&#xf015;"></Label>
-        <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
-    </GridLayout>
+    <ScrollView orientation="vertical">
+        <GridLayout margin="auto" rows="200,75,auto,auto" columns="20,*,*,*,*,*,20">
+            <Label class="fas" text="&#xf70c;" textAlignment="center" fontSize="20" row="1" col="1" ></Label>
+            <Label class="fas" text="&#xf076;" textAlignment="center" fontSize="20" row="1" col="2" ></Label>
+            <Label class="fas" text="&#xf14e;" textAlignment="center" fontSize="20" row="1" col="3" ></Label>
+            <Label class="fas" text="&#xf0eb;" textAlignment="center" fontSize="20" row="1" col="4" ></Label>
+            <Label class="fas" text="&#xf51f;" textAlignment="center" fontSize="20" row="1" col="5" ></Label>
+
+            <Label text="Aplikacija za dohvaćanje i prikazivanje podataka Android senzora: akcelerometra, senzora magnetskog polja, senzora orijentacije, senzora svjetlosti i žiroskopa." textAlignment="center" textWrap="true" fontSize="20" row="3" col="1" colSpan="5"></Label>
+        </GridLayout>
+    </ScrollView>
 </Page>

@@ -345,7 +345,22 @@ senzori.setListener(slusateljSenzora)
 ...
 ```
 
+Smi senzor sada možemo i pokrenuti:
 
+``` js
+    ...
 
+    akcelerometar = senzori.startSensor(android.hardware.Sensor.TYPE_ACCELEROMETER, SensorDelay.UI)
+
+    return viewModel
+}
+```
+
+## 6. Slike aplikacije
+
+Slike ispod prikazuju neke aktivnosti i senzore aplikacije:
+
+![početni zaslon](home.jpg)|![ladica aktivnosti](drawer.jpg)|![akcelerometar](accelerometer.jpg)|![senzor svjetlosti](sensor_light.jpg)
+-|-|-|-
 
 
