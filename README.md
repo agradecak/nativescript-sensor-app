@@ -406,3 +406,10 @@ Energija, rezultati:
 - korištenje aplikacije ne troši previše energije, potrošnja baterije je konstantno "Light"
 - vidimo da kod događaja dodira ekrana ili promjene aktivnosti, korištenje baterije se kratko povisi
 
+# Literatura
+
+- [NativeScript, Sensor Plugin](https://market.nativescript.org/plugins/nativescript-android-sensors/)
+- [NativeScript, službena dokumentacija](https://docs.nativescript.org/)
+- [NativeScript, usjek prednje kamere](https://github.com/NativeScript/NativeScript/issues/6795)
+- [Android, senzori](https://developer.android.com/reference/android/hardware/Sensor)
+- [Android, senzori i vraćane vrijednosti](https://developer.android.com/reference/android/hardware/SensorEvent#values)
