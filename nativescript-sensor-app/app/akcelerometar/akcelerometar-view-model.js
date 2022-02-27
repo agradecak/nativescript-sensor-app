@@ -3,7 +3,6 @@ import { SelectedPageService } from '../shared/selected-page-service'
 import { AndroidSensors, AndroidSensorListener, SensorDelay } from 'nativescript-android-sensors';
 
 
-
 export function AkcelerometarViewModel() {
     SelectedPageService.getInstance().updateSelectedPage('Akcelerometar')
 
