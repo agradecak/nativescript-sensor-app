@@ -1,6 +1,14 @@
 # NativeScript senzor aplikacija
 
-NativeScript Android aplikacija sa senzorima.
+U nastavku je razložen razvojni proces NativeScript Android aplikacije sa senzorima. Aplikacija se služi NativeScript pluginom koji dohvaća informacije o senzoru i vrijednosti koje senzor očitava za cijeli skup Android mobilnih senzora. Senzori koji se koriste u aplikaciji su:
+
+- akcelerometar
+- senzor magnetskih polja
+- senzor orijentacije
+- senzor svjetlosti
+- žiroskop
+
+Aplikacija je namijenjena jednostavnom očitavanju mjerenih vrijednosti i informacija o spomenutim senzorima. Sastavljena je od 6 aktivnosti, jedne Home aktivnosti i pet aktivnosti za Android senzore. Kako bi koristili senzore, potrebno je otvoriti "drawer" ili ladicu kroz koju je moguće navigirati na bilo koji od spomenutih senzora.
 
 ## 1. Postavljanje projekta
 
@@ -10,7 +18,7 @@ Prije svega, pametno je uvjeriti se da je NativeScript dobro postavljen prije po
 $ ns doctor android
 ```
 
-Prvo je potrebno otvoriti novi udaljeni GitHub repozitorij na kojemu će se nalaziti projekt. Zatim u željeni lokalni direktorij kloniramo repozitorij naredbom:
+Kako bi krenuli s radom, potrebno je otvoriti novi udaljeni GitHub repozitorij na kojemu će se nalaziti izvorni kod projekta. Zatim u željeni lokalni direktorij kloniramo repozitorij naredbom:
 
 ``` console
 $ git clone https://github.com/proto-forma/nativescript-sensor-app.git
@@ -22,13 +30,13 @@ Nakon kloniranja, pozicioniramo se u novostvoreni direktorij aplikacije:
 $ cd nativescript-sensor-app/
 ```
 
-Zatim pokrećemo naredbu koja stvara novu NativeScript aplikaciju na temelju gotovog predloška:
+Pokrećemo naredbu koja stvara novu NativeScript aplikaciju na temelju gotovog predloška:
 
 ``` console
 $ tns create nativescript-sensor-app --template @nativescript/template-drawer-navigation
 ```
 
-Opet se pozicioniramo u novostvoreni direktorij:
+Ponovno se pozicioniramo u novostvoreni direktorij:
 
 ``` console
 $ cd nativescript-sensor-app/
@@ -40,7 +48,7 @@ Sada možemo pokrenuti aplikaciju na našem Android uređaju kako bi se uvjerili
 $ ns run android
 ```
 
-Ako sve radi, slijedi i podizanje aplikacije na udaljeni repozitorij:
+Ako sve radi, slijedi i inicijalno podizanje aplikacije na udaljeni repozitorij:
 
 ``` console
 $ git remote add nativescript-sensor-app https://github.com/proto-forma/nativescript-sensor-app.git
@@ -51,7 +59,7 @@ $ git push nativescript-sensor-app main
 
 ## 2. Layout
 
-Kada prvi puta pokrenemo aplikaciju, na nekim uređajima (uključujući moj) možemo uočiti da aplikacija ne uzima u obzir gornji dio zaslona ako ima usjek za prednju kameru. To možemo popraviti tako da se pozicioniramo u direktorij `/App_Resources/Android/src/main/res/values-v21` te u datoteci `styles.xml` izmjenimo slijedeći redak iz `true` u `false` u:
+Kada prvi puta pokrenemo aplikaciju, na nekim uređajima (uključujući mojem) možemo uočiti da aplikacija ne uzima u obzir gornji dio zaslona ukoliko ima usjek za prednju kameru. To možemo popraviti tako da se pozicioniramo u direktorij `/App_Resources/Android/src/main/res/values-v21` te u datoteci `styles.xml` izmjenimo slijedeći redak iz `true` u `false` u:
 
 ``` xml
 <style name="AppThemeBase21" parent="AppThemeBase">
@@ -360,7 +368,41 @@ Smi senzor sada možemo i pokrenuti:
 
 Slike ispod prikazuju neke aktivnosti i senzore aplikacije:
 
+HOME                       |DRAWER                          |AKCELEROMETAR                      |SENZOR SVJETLOSTI                     
+:-------------------------:|:------------------------------:|:---------------------------------:|--------------------------------------
 ![početni zaslon](home.jpg)|![ladica aktivnosti](drawer.jpg)|![akcelerometar](accelerometer.jpg)|![senzor svjetlosti](sensor_light.jpg)
--|-|-|-
 
+## 7. Profiliranje aplikacije
+
+Kako bi profilirali aplikacija, možemo ju pokrenuti direktno iz profilera u Android Studiu ili ju prvo izgraditi iz izvornog koda pa pokrenuti u profileru. Ako se odlučimo na prvu opciju, prvo se pozicioniramo u glavni direktorij aplikacije i pokrenemo:
+
+``` console
+$ ns build android
+```
+
+U prozoru konzole dobijemo lokaciju izgrađene aplikacije koja se nalazi u `...\nativescript-sensor-app\platforms\android\app\build\outputs\apk\debug\app-debug.apk`.
+
+Vratimo se profiliranju aplikacije koja je pokrenuta na uređaju. Otvaramo Android Studio i na alatnoj traci odaberemo `View -> Tool Windows -> Profiler`. Kada se prozor profilera otvori, u gornjem lijevom kutu prozora profilera kliknemo na ikonu `+` koja pokreće novu sesiju profiliranja. Možemo odabrati `Load file...` no mi odabiremo uređaj koji je spojen na računalo i aplikaciju koja je pokrenuta na uređaju (u ovom slučaju "nativescriptsensorapp").
+
+Snimanjem CPU, memorijskog i energetskog tereta aplikacije na resurse uređaja dobivamo slijedeće rezultate:
+
+CPU             | MEMORIJA               | ENERGIJA             
+:--------------:|:----------------------:|:---------------------:
+![cpu](cpu.png) |![memorija](memory.png) |![energija](energy.png)
+
+CPU, rezultati:
+
+- vidimo da korišteni resursi CPU nikad ne prelaze 15%
+- na grafikonu s desne strane vidimo da najviše resursa troše kernel procesi
+- korištenjem aplikacije, CPU *"usage"* ne varira previše
+
+Memorija, rezultati:
+
+- na grafikonu vidimo koji objekti su prisutni na gomili
+- primjećujemo da aplikacija ima 26 događaja *"curenja"* memorije
+
+Energija, rezultati:
+
+- korištenje aplikacije ne troši previše energije, potrošnja baterije je konstantno "Light"
+- vidimo da kod događaja dodira ekrana ili promjene aktivnosti, korištenje baterije se kratko povisi
 
